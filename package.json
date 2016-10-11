@@ -1,0 +1,27 @@
+{
+  "name": "alexa-slack",
+  "version": "1.0.0",
+  "description": "Alexa Slack interface",
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.75.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aydanbrown/alexa-slack.git"
+  },
+  "keywords": [
+    "Alexa",
+    "Slack"
+  ],
+  "author": "Aydan Brown",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aydanbrown/alexa-slack/issues"
+  },
+  "homepage": "https://github.com/aydanbrown/alexa-slack#readme"
+}
