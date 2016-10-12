@@ -18,18 +18,23 @@ var similar = require('string-similarity');
 //   }
 // })
 
-slack('channels.list', {}, function(err, res) {
-  if(err) return console.log(err);
-  if(res.ok) {
-    var tests = {};
-    var comparison = [];
-    res.channels.forEach(function(channel) {
-      tests[channel.name] = channel.id;
-      comparison.push(channel.name);
-    });
-    console.log(comparison);
-    var matches = similar.findBestMatch('randomness', comparison);
-    console.log(matches);
-    console.log('Matching Channel: ' + tests[matches.bestMatch.target] + ', ' + matches.bestMatch.rating);
-  }
-});
+// slack('channels.list', {}, function(err, res) {
+//   if(err) return console.log(err);
+//   if(res.ok) {
+//     var tests = {};
+//     var comparison = [];
+//     res.channels.forEach(function(channel) {
+//       tests[channel.name] = channel.id;
+//       comparison.push(channel.name);
+//     });
+//     console.log(comparison);
+//     var matches = similar.findBestMatch('randomness', comparison);
+//     console.log(matches);
+//     console.log('Matching Channel: ' + tests[matches.bestMatch.target] + ', ' + matches.bestMatch.rating);
+//   }
+// });
+
+slack('channels.history', { channel: 'C2MMCN5EH', count: 1 }, function(err, result) {
+  if(err) return console.error(err);
+  console.log(result);
+})
