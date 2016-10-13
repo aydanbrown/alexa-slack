@@ -13,6 +13,8 @@ exports.handler = function (event, context) {
   try {
     console.log("event.session.application.applicationId=" + event.session.application.applicationId);
 
+    console.log(JSON.stringify(event, true, 3));
+
     /**
      * Uncomment this if statement and populate with your skill's application ID to
      * prevent someone else from configuring a skill that sends requests to this function.
@@ -48,12 +50,12 @@ exports.handler = function (event, context) {
  * Called when the session starts.
  */
 function onSessionStarted(sessionStartedRequest, session) {
-  console.log(`onSessionStarted requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
+  console.log(`onSessionStarted requestId=${sessionStartedRequest.requestId}, sessionId=${session.sessionId}`);
 }
 
 // Called when the user launches the skill without specifying what they want.
 function onLaunch(launchRequest, session, callback) {
-  console.log(`onLaunch requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
+  console.log(`onLaunch requestId=${launchRequest.requestId}, sessionId=${session.sessionId}`);
   getWelcomeResponse(callback);
 }
 
@@ -75,14 +77,15 @@ function onIntent(intentRequest, session, callback) {
     case 'ListMessagesChannel': Intent.listMessagesChannel(intent, session, callback); break;
     case 'AMAZON.HelpIntent': Intent.help(intent, session, callback); break;
     case 'AMAZON.StopIntent': handleSessionEndRequest(callback); break;
-    default: throw 'Invalid intent'
+    case 'AMAZON.CancelIntent': handleSessionEndRequest(callback); break;
+    default: throw 'Invalid intent';
   }
 }
 
 
 // Called when the user ends the session.
 function onSessionEnded(sessionEndedRequest, session) {
-  console.log(`onSessionEnded requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
+  console.log(`onSessionEnded requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId}`);
   // Add cleanup logic here
 }
 
@@ -92,7 +95,7 @@ function getWelcomeResponse(callback) {
   // If we wanted to initialize the session to have some attributes we could add those here.
   var sessionAttributes = { channel: 'C2MMCN5EH', name: 'Alexa' };
   var cardTitle = "Welcome";
-  var speechOutput = "Welcome to Slack, what would you like to do";
+  var speechOutput = "Welcome to Slack";
   var repromptText = "If you are unsure, you can ask for help";
   var shouldEndSession = false;
 
@@ -101,71 +104,12 @@ function getWelcomeResponse(callback) {
 
 function handleSessionEndRequest(callback) {
   var cardTitle = "Session Ended";
-  var speechOutput = "Thank you for trying the Alexa Skills Kit sample. Have a nice day!";
+  var speechOutput = "Have a nice day";
   // Setting this to true ends the session and exits the skill.
   var shouldEndSession = true;
 
   callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession));
 }
-
-/**
- * Sets the color in the session and prepares the speech to reply to the user.
- */
-function setColorInSession(intent, session, callback) {
-  var cardTitle = intent.name;
-  var favoriteColorSlot = intent.slots.Color;
-  var repromptText = "";
-  var sessionAttributes = {};
-  var shouldEndSession = false;
-  var speechOutput = "";
-
-  if (favoriteColorSlot) {
-    var favoriteColor = favoriteColorSlot.value;
-    sessionAttributes = createFavoriteColorAttributes(favoriteColor);
-    speechOutput = "I now know your favorite color is " + favoriteColor + ". You can ask me " +
-        "your favorite color by saying, what's my favorite color?";
-    repromptText = "You can ask me your favorite color by saying, what's my favorite color?";
-  } else {
-    speechOutput = "I'm not sure what your favorite color is. Please try again";
-    repromptText = "I'm not sure what your favorite color is. You can tell me your " +
-        "favorite color by saying, my favorite color is red";
-  }
-
-  callback(sessionAttributes, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
-}
-
-function createFavoriteColorAttributes(favoriteColor) {
-  return {
-    favoriteColor: favoriteColor
-  };
-}
-
-function getColorFromSession(intent, session, callback) {
-  var favoriteColor;
-  var repromptText = null;
-  var sessionAttributes = {};
-  var shouldEndSession = false;
-  var speechOutput = "";
-
-  if (session.attributes) {
-      favoriteColor = session.attributes.favoriteColor;
-  }
-
-  if (favoriteColor) {
-      speechOutput = "Your favorite color is " + favoriteColor + ". Goodbye.";
-      shouldEndSession = true;
-  } else {
-      speechOutput = "I'm not sure what your favorite color is, you can say, my favorite color " +
-          " is red";
-  }
-
-  // Setting repromptText to null signifies that we do not want to reprompt the user.
-  // If the user does not respond or says something that is not understood, the session
-  // will end.
-  callback(sessionAttributes, buildSpeechletResponse(intent.name, speechOutput, repromptText, shouldEndSession));
-}
-
-// --------------- Helpers that build all of the responses -----------------------
 
 function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
   return {

@@ -1,0 +1,8 @@
+SelectChannel join {general|Channel}
+MessageChannel say {hello how is everyone|Message}
+ReadMessageChannel read
+QueryMessages read {Time}
+QueryMessages read {Date}
+QueryMessages read out {Time}
+QueryMessages read out {Date}
+QueryMessages read out the last {Count} 

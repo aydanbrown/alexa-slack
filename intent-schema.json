@@ -1,0 +1,55 @@
+{
+  "intents": [
+    {
+      "intent": "SelectChannel",
+      "slots": [
+        {
+          "name": "Channel",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "MessageChannel",
+      "slots": [
+        {
+          "name": "Message",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "ReadMessageChannel"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "QueryMessages",
+      "slots": [
+        {
+          "name": "Resource",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "Count",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Date",
+          "type": "AMAZON.DATE"
+        },
+        {
+          "name": "Time",
+          "type": "AMAZON.TIME"
+        }
+      ]
+    }
+  ]
+}
