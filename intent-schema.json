@@ -1,7 +1,16 @@
 {
   "intents": [
     {
-      "intent": "SelectChannel",
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "JoinChannel",
       "slots": [
         {
           "name": "Channel",
@@ -10,25 +19,26 @@
       ]
     },
     {
-      "intent": "MessageChannel",
+      "intent": "SendMessage",
       "slots": [
         {
           "name": "Message",
+          "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "Target",
           "type": "AMAZON.LITERAL"
         }
       ]
     },
     {
-      "intent": "ReadMessageChannel"
-    },
-    {
-      "intent": "AMAZON.HelpIntent"
-    },
-    {
-      "intent": "AMAZON.StopIntent"
-    },
-    {
-      "intent": "AMAZON.CancelIntent"
+      "intent": "ReadLastMessage",
+      "slots": [
+        {
+          "name": "Target",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
     },
     {
       "intent": "QueryMessages",
