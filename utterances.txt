@@ -1,8 +1,28 @@
-SelectChannel join {general|Channel}
-MessageChannel say {hello how is everyone|Message}
-ReadMessageChannel read
-QueryMessages read {Time}
-QueryMessages read {Date}
-QueryMessages read out {Time}
-QueryMessages read out {Date}
-QueryMessages read out the last {Count} 
+JoinChannel join {general|Channel}
+JoinChannel join the channel {general|Channel}
+JoinChannel open {general|Channel}
+JoinChannel open the channel {general|Channel}
+PostMessage say {hello|Message}
+PostMessage send {hello|Message}
+PostMessage post {hello|Message}
+PostMessage message {hello|Message}
+PostMessage say {hello|Message} to {general|Target}
+PostMessage send {hello|Message} to {general|Target}
+PostMessage post in {general|Target} say {hello|Message}
+PostMessage in {general|Target} say {hello|Message}
+ReadLastMessage read the last message
+ReadLastMessage read out the last one
+ReadLastMessage read out the last {Count}
+ReadLastMessage read out the last {Count} messages
+ReadTopic what is the topic
+ReadTopic what is the topic of this channel
+ReadTopic what is the topic for this channel
+ReadTopic tell me the topic
+ReadTopic read the topic
+ReadTopic read the topic for this channel
+ReadPurpose what is the purpose
+ReadPurpose what is the purpose of this channel
+ReadPurpose what is the purpose for this channel
+ReadPurpose tell me the purpose
+ReadPurpose read the purpose
+ReadPurpose read the purpose for this channel

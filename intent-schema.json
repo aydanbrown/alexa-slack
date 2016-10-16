@@ -19,7 +19,7 @@
       ]
     },
     {
-      "intent": "SendMessage",
+      "intent": "PostMessage",
       "slots": [
         {
           "name": "Message",
@@ -32,11 +32,21 @@
       ]
     },
     {
+      "intent": "ReadTopic"
+    },
+    {
+      "intent": "ReadPurpose"
+    },
+    {
       "intent": "ReadLastMessage",
       "slots": [
         {
           "name": "Target",
           "type": "AMAZON.LITERAL"
+        },
+        {
+          "name": "Count",
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
